@@ -9,7 +9,137 @@ const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
+const { create } = require("domain");
 
+const employee = []
+
+function createEmployee(){
+    inquirer.prompt({
+        type: "list",
+        name: "role",
+        message: "what is your role?",
+        choices: ["Manager", "Engineer", "Intern"]
+    }).then(function({role}){
+        switch (role){
+            case "Manager":
+                createManager();
+                break;
+
+                case "Engineer":
+                    createEngineer();
+                    break;
+
+                    case "Intern":
+                        createIntern();
+                        break;
+        }
+    });
+}
+
+function createManager(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your email address?"
+        },
+        {
+            type: "input",
+            name: "officenumber",
+            message: "What is your office number?"
+        }
+    ]).then (function(response){
+        const manager = new Manager(
+            response.name,
+            response.id,
+            response.email,
+            response.office
+        );
+        console.log(manager);
+        employee.push(manager);
+        createEmployee();
+    });
+}
+
+function createIntern(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your email?"
+        },
+        {
+            type: "input",
+            name: "school",
+            message: "Where did you go to school?"
+        }
+    ]).then(function(response){
+        const intern = new Intern(
+            response.name,
+            response,id,
+            response.email,
+            response.school
+        );
+        console.log(intern);
+        employee.push(intern);
+        createEmployee();
+    });
+}
+
+function createEngineer(){
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "name",
+            message: "What is your name?"
+        },
+        {
+            type: "input",
+            name: "id",
+            message: "What is your id?"
+        },
+        {
+            type: "input",
+            name: "email",
+            message: "What is your email?"
+        },
+        {
+            type: "input",
+            name: "github",
+            message: "What is your GitHub?"
+        }
+    ]).then(function(response){
+        const enginner = new enginner(
+            response.name,
+            response.id,
+            response.email,
+            response.github
+        );
+        console.log(engineer);
+        employee.push(engineer);
+        createEmployee();
+    })
+}
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
